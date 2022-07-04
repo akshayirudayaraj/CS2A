@@ -59,13 +59,13 @@ bool Pet::set_num_limbs(int num_limbs) {
 }
 
 string Pet::to_string() const {
-    ostringstream strings;
-    strings << _id;
-    string strID = strings.str();
+    ostringstream str1;
+    str1 << _id;
+    string strID = str1.str();
 
-    ostringstream string1;
-    string1 << _num_limbs;
-    string strLimbCount = string1.str();
+    ostringstream str2;
+    str2 << _num_limbs;
+    string strLimbCount = str2.str();
 
     string concatenate = "(Name: " + _name + ", ID: " + strID + ", Limb Count: " + strLimbCount + ")";
     return concatenate;
@@ -79,7 +79,7 @@ void Pet::get_n_pets(size_t n, vector<Pet>& pets, int name_len) {
         pets[i].set_id(id);
         pets[i].set_num_limbs(rand() % 9); // up to arachnids
         pets[i].set_name(make_a_name(name_len));
-        prev_id++;
+        prev_id = id;
     }
 }
 
@@ -120,45 +120,46 @@ string Pet::make_a_name(int len) {
 // Optional EC:
 // Global helpers
 bool operator==(const Pet& pet1, const Pet& pet2) {
-    /*
-    if (pet1._name == pet2._name && pet1._id == pet2._id && pet1._num_limbs == pet2._num_limbs) {
+    
+    if (pet1.get_name() == pet2.get_name() && pet1.get_id() == pet2.get_id() && pet1.get_num_limbs() == pet2.get_num_limbs()) {
         return true;
     }
-    */
+    
     return false;
 }
 
 bool operator!=(const Pet& pet1, const Pet& pet2) {
-    /*
+    
     if (pet1 == pet2) {
         return false;
     }
-    */
+    
     return true;
 }
 
 ostream& operator<<(ostream& os, const Pet& pet) {
+
     /*
-    ostringstream strings;
-    strings << id;
-    string strID = strings.str();
+    
+    ostringstream str1;
+    str1 << pet.get_id();
+    string strID = str1.str();
 
-    ostringstream string1;
-    string1 << num_limbs;
-    string strLimbCount = string1.str();
+    ostringstream str2;
+    str2 << pet.get_num_limbs();
+    string strLimbCount = str2.str();
 
-    os << "(Name: " + name + ", ID: " + strID + ", Limb Count: " + strLimbCount;
+    os << "(Name: " + pet.get_name() + ", ID: " + strID + ", Limb Count: " + strLimbCount + ")";
+    
     */
 
-    os << "Test";
+    os << pet.to_string();
     
+
     return os;
+
 }
 
 int main() {
-    cout << Pet::make_a_name(9);
-    
-    // for (int element : )
-
     return 0;
 }

@@ -155,7 +155,6 @@ ostream& operator<<(ostream& os, const Pet& pet) {
     return os;
 }
 
-/*
 int main() {
     cout << Pet::make_a_name(9);
     
@@ -163,4 +162,3 @@ int main() {
 
     return 0;
 }
-*/

@@ -160,6 +160,8 @@ ostream& operator<<(ostream& os, const Pet& pet) {
 
 }
 
+/*
 int main() {
     return 0;
 }
+*/

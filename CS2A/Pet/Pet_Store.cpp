@@ -53,9 +53,7 @@ void Pet_Store::_sort_pets_by_name() {
 bool Pet_Store::find_pet_by_id_lin(long id, Pet& pet) {
     for (size_t i = 0; i <= _pets.size(); i++) {
         if (_pets[i].get_id() == id) {
-            pet.set_id(_pets[i].get_id());
-            pet.set_name(_pets[i].get_name());
-            pet.set_num_limbs(_pets[i].get_num_limbs());
+            pet = _pets[i];
             return true;
         }
     }
@@ -65,15 +63,19 @@ bool Pet_Store::find_pet_by_id_lin(long id, Pet& pet) {
 bool Pet_Store::find_pet_by_id_bin(long id, Pet& pet) {
     if (_sort_order != BY_ID) {
         _sort_pets_by_id();
+        _sort_order = BY_ID;
     }
 
-    int low = 0, high = _pets.size();
+    int low = 0, high = _pets.size()-1;
     int mid;
 
-    while (high - low > 1) {
+    while (high - low >= 3) {
         mid = (high - low)/2;
 
-        if (_pets[mid].get_id() < id) {
+        if (_pets[mid].get_id() == id) {
+            pet = _pets[mid];
+            return true;
+        } else if (_pets[mid].get_id() < id) {
             low = mid + 1;
         } else {
             high = mid;
@@ -81,14 +83,10 @@ bool Pet_Store::find_pet_by_id_bin(long id, Pet& pet) {
     }
 
     if (_pets[low].get_id() == id) {
-        pet.set_id(_pets[low].get_id());
-        pet.set_name(_pets[low].get_name());
-        pet.set_num_limbs(_pets[low].get_num_limbs());
+        pet = _pets[low];
         return true;
     } else if (_pets[high].get_id() == id){
-        pet.set_id(_pets[high].get_id());
-        pet.set_name(_pets[high].get_name());
-        pet.set_num_limbs(_pets[high].get_num_limbs());
+        pet = _pets[high];
         return true;
     }
 
@@ -98,9 +96,7 @@ bool Pet_Store::find_pet_by_id_bin(long id, Pet& pet) {
 bool Pet_Store::find_pet_by_name_lin(string name, Pet& pet) {
     for (size_t i = 0; i <= _pets.size(); i++) {
         if (_pets[i].get_name() == name) {
-            pet.set_id(_pets[i].get_id());
-            pet.set_name(_pets[i].get_name());
-            pet.set_num_limbs(_pets[i].get_num_limbs());
+            pet = _pets[i];
             return true;
         }
     }
@@ -109,7 +105,8 @@ bool Pet_Store::find_pet_by_name_lin(string name, Pet& pet) {
 
 bool Pet_Store::find_pet_by_name_bin(string name, Pet& pet) {
     if (_sort_order != BY_NAME) {
-        _sort_pets_by_id();
+        _sort_pets_by_name();
+        _sort_order = BY_NAME;
     }
 
     int low = 0, high = _pets.size();
@@ -118,7 +115,10 @@ bool Pet_Store::find_pet_by_name_bin(string name, Pet& pet) {
     while (high - low > 1) {
         mid = (high - low)/2;
 
-        if (_pets[mid].get_name() < name) {
+        if (_pets[mid].get_name() == name) {
+            pet = _pets[mid];
+            return true;
+        } else if (_pets[mid].get_name() < name) {
             low = mid + 1;
         } else {
             high = mid;
@@ -126,14 +126,10 @@ bool Pet_Store::find_pet_by_name_bin(string name, Pet& pet) {
     }
 
     if (_pets[low].get_name() == name) {
-        pet.set_id(_pets[low].get_id());
-        pet.set_name(_pets[low].get_name());
-        pet.set_num_limbs(_pets[low].get_num_limbs());
+        pet = _pets[low];
         return true;
     } else if (_pets[high].get_name() == name){
-        pet.set_id(_pets[high].get_id());
-        pet.set_name(_pets[high].get_name());
-        pet.set_num_limbs(_pets[high].get_num_limbs());
+        pet = _pets[high];
         return true;
     }
 
@@ -150,8 +146,10 @@ string Pet_Store::to_string(size_t n1, size_t n2) {
 
 /*
 int main() {
+    Pet_Store _pets;
+    _pets.populate_with_n_random_pets(13);
 
-
-    return 0;
+    Pet my_pet;
+    cout << _pets.find_pet_by_id_bin(12, my_pet);
 }
 */

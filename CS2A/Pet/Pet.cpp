@@ -162,6 +162,7 @@ ostream& operator<<(ostream& os, const Pet& pet) {
 
 /*
 int main() {
+    cout << "Hello";
     return 0;
 }
 */

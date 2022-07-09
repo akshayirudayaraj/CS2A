@@ -231,21 +231,9 @@ string get_gp_terms(double a, double r, size_t n) {
 }
 
 double get_nth_fibonacci_number(size_t n) {
-    unsigned long long int total, num1 = 1, num2 = 1;
+    long double total, num1 = 1, num2 = 1;
     if (n <= 2) {
         return 1;
-    } else if (n == 94) {
-        return 1.97403e+19;
-    } else if (n == 95) {
-        return 3.19404e+19;
-    } else if (n == 96) {
-        return 5.16807e+19;
-    } else if (n == 97) {
-        return 8.36211e+19;
-    } else if (n == 98) {
-        return 1.35302e+20;
-    } else if (n == 99) {
-        return 2.18923e+20;
     }
 
     /*

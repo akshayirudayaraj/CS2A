@@ -87,7 +87,7 @@ bool Pet_Store::find_pet_by_id_bin(long id, Pet& pet) {
 }
 
 bool Pet_Store::find_pet_by_name_lin(string name, Pet& pet) {
-    for (size_t i = 0; i <= _pets.size(); i++) {
+    for (size_t i = 0; i <= _pets.size()-1; i++) {
         if (_pets[i].Pet::get_name() == name) {
             pet = _pets[i];
             return true;
@@ -98,7 +98,7 @@ bool Pet_Store::find_pet_by_name_lin(string name, Pet& pet) {
 
 bool Pet_Store::find_pet_by_name_bin(string name, Pet& pet) {
     if (_sort_order != BY_NAME) {
-        _sort_pets_by_id();
+        _sort_pets_by_name();
         _sort_order = BY_NAME;
     }
 

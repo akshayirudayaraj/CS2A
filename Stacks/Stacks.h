@@ -3,6 +3,8 @@
 #ifndef Stacks_h
 #define Stacks_h
 
+#include <iostream>
+#include <algorithm>
 #include <vector>
 #include <sstream>
 
@@ -13,7 +15,7 @@ private:
     vector<int> _data;
 
 public:
-    // no explicit constructor or deconstructor
+    // no explicit constructor or destructor
 
     size_t size() const {
         return _data.size();
@@ -33,7 +35,7 @@ public:
             return 0;
         }
         success = true;
-        return _data[0];
+        return _data[_data.size()-1];
     }
 
     bool pop() {
@@ -48,7 +50,8 @@ public:
         if (is_empty()) {
             return false;
         }
-        _data.erase(_data.begin()+val+1);
+        val = _data.back();
+        _data.erase(_data.begin() + _data.size()-1);
         return true;
     }
 
@@ -59,27 +62,31 @@ public:
         dataOS << size();
         string strDataSize = dataOS.str();
 
-        list = "Stack (" + strDataSize + " elements): \n";
+        list = "Stack (" + strDataSize + " elements):\n";
 
         if (size() > 10) {
-            for (int i = 0; i <= 9; i++) {
-                ostringstream elemOS;
-                elemOS << _data[i];
-                string strElem = elemOS.str();
-
-                list += strElem + "\n";
-            }
-
-            list += "\n...";
             
-        } else {
-            for (size_t i = 0; i <= size()-1; i++) {
-                ostringstream elemOS;
-                elemOS << _data[i];
-                string strElem = elemOS.str();
+            ostringstream elemOS;
 
-                list += strElem + "\n";
+            for (int i = 1; i <= 10; i++) {
+                elemOS << _data[size()-i] << "\n";
             }
+
+            string strElem = elemOS.str();
+
+            list += strElem;
+
+            list += "...\n";
+
+        } else {
+            ostringstream elemOS;
+
+            for (size_t i = 1; i <= size(); i++) {
+                elemOS << _data[size()-i] << "\n";
+            }
+            string strElem = elemOS.str();
+
+            list += strElem;
         }
 
         list += "Elements, if listed above, are in increasing order of age.";
@@ -105,12 +112,6 @@ public:
     }
 
     void push(string val) {
-        /*
-        ostringstream valOS;
-        valOS << val;
-        string strVal = valOS.str();
-        */
-
         _data.push_back(val);
     }
 
@@ -120,7 +121,7 @@ public:
             return 0;
         }
         success = true;
-        return _data[0];
+        return _data[_data.size()-1];
     }
 
     bool pop() {
@@ -131,11 +132,12 @@ public:
         return true;
     }
 
-    bool pop(int& val) {
+    bool pop(string& val) {
         if (is_empty()) {
             return false;
         }
-        _data.erase(_data.begin()+val+1);
+        val = _data.back();
+        _data.erase(_data.begin() + _data.size()-1);
         return true;
     }
 
@@ -146,17 +148,17 @@ public:
         dataOS << size();
         string strDataSize = dataOS.str();
 
-        list = "Stack (" + strDataSize + " elements): \n";
+        list = "Stack (" + strDataSize + " elements):\n";
 
         if (size() > 10) {
-            for (int i = 0; i <= 9; i++) {
-                list += _data[i] + "\n";
+            for (int i = 1; i <= 10; i++) {
+                list += _data[size()-i] + "\n";
             }
 
-            list += "\n...";
+            list += "...\n";
         } else {
-            for (size_t i = 0; i <= size()-1; i++) {
-                list += _data[i] + "\n";
+            for (size_t i = 1; i <= size(); i++) {
+                list += _data[size()-i] + "\n";
             }
         }
 

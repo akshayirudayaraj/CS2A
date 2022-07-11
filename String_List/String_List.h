@@ -27,7 +27,7 @@ private:
     struct Node {
         string data;
         Node *next;
-        Node(string s = "") : data(s), next(nullptr) ()   
+        Node(string s = "") : data(s), next(nullptr) {}
     };
 
     Node *_head, *_tail, *_prev_to_current;
@@ -43,7 +43,7 @@ public:
     }
 
     String_List *insert_at_current(string s) {
-
+        
     }
 
     String_List *push_back(string s) {

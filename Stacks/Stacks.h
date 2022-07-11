@@ -156,6 +156,7 @@ public:
             }
 
             list += "...\n";
+            
         } else {
             for (size_t i = 1; i <= size(); i++) {
                 list += _data[size()-i] + "\n";

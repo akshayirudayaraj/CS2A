@@ -129,7 +129,7 @@ string Pet_Store::to_string(size_t n1, size_t n2) {
     return concat;
 }
 
-/*
+
 int main() {
     
     Pet_Store _pets;
@@ -146,4 +146,3 @@ int main() {
 
     return 0;
 }
-*/

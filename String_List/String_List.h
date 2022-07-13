@@ -27,7 +27,8 @@ private:
     struct Node {
         string data;
         Node *next;
-        Node(string s = "") : data(s), next(nullptr) {}
+        Node(string s = "") 
+            : data(s), next(nullptr) {}
     };
 
     Node *_head, *_tail, *_prev_to_current;
@@ -35,43 +36,54 @@ private:
 
 public:
     String_List() {
-        
+        _head = new Node("_SENTINEL_");
+        _tail = _head;
+        _prev_to_current = _head;
+
+        _size++;
     }
 
     ~String_List() {
-
+        // clear();
+        --_size;
+        delete _head;
     }
 
     String_List *insert_at_current(string s) {
-        
+        _tail = new Node();
+        _tail -> data = s;
+
+        _prev_to_current -> next = _tail;
+
+        return this;
     }
 
     String_List *push_back(string s) {
-
+        
     }
 
     String_List *push_front(string s) {
-
+        
     }
 
     String_List *advance_current() {
-
+        
     }
 
     string get_current() const {
-
+        
     }
 
     String_List *remove_at_current() {
-
+        
     }
 
     size_t get_size() const {
-
+        
     }
 
     String_List *rewind() {
-
+        
     }
 
     void clear() {
@@ -88,7 +100,7 @@ public:
     */
 
     string& find_item(string s) const {
-
+        
     }
 
     /*
@@ -98,7 +110,7 @@ public:
     */
 
     string to_string() const {
-
+        
     }
 
     friend class Tests;

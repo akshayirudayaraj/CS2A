@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 
-using namespace std;
+using std::string;
 
 /*
 IMPORTANT IMPLEMENTATION NOTE: With the expection of to_string(),
@@ -36,58 +36,79 @@ private:
 
 public:
     String_List() {
+        // empty list with all pointers directed at header
         _head = new Node("_SENTINEL_");
         _tail = _head;
         _prev_to_current = _head;
 
-        _size++;
+        // _size++ ; // increment size of list
     }
 
     ~String_List() {
-        // clear();
-        --_size;
-        delete _head;
+        // clear(); // empties list
+        // _size--; // decrements size
+        delete _head; // deallocate what head points at
     }
 
     String_List *insert_at_current(string s) {
-        _tail = new Node();
-        _tail -> data = s;
-
-        _prev_to_current -> next = _tail;
-
+        _prev_to_current -> next = new Node(s); // _prev_to_current points to next points to new Node where data = s
         return this;
     }
 
     String_List *push_back(string s) {
-        
+        _tail = new Node(s);
+        // save prev_to_current
+        _prev_to_current -> next = _tail;
+        // restore prev_to_current
+
+        return this;
     }
 
     String_List *push_front(string s) {
-        
+        _head -> next = new Node(s);
+        _head -> next -> next = _prev_to_current;
+
+        return this;
     }
 
     String_List *advance_current() {
-        
+        if (_prev_to_current == _tail) {
+            return nullptr;
+        }
+        _prev_to_current = _prev_to_current -> next;
+        return this;
     }
 
     string get_current() const {
-        
+        if (_prev_to_current != nullptr) {
+            return _prev_to_current -> data;
+        }
+        return _head -> data;
     }
 
     String_List *remove_at_current() {
-        
+       delete _prev_to_current -> next;
+       return this;
     }
 
     size_t get_size() const {
-        
+        return _size;
     }
 
     String_List *rewind() {
-        
+        _prev_to_current = _head;
+        return this;
     }
 
     void clear() {
-
+        for (size_t i = 0; i <= _size; i++) {
+            if (_head -> next != NULL) {
+                delete this;
+            }
+        }
+        _prev_to_current = _head;
+        _tail = _head;
+        _head -> next = nullptr;
     }
 
     /*
@@ -100,7 +121,15 @@ public:
     */
 
     string& find_item(string s) const {
-        
+        static string holder = "_SENTINEL_";
+
+        /*
+        for (size_t i = 0; i <= _size; i++) {
+            
+        }
+        */
+
+        return holder;
     }
 
     /*
@@ -110,7 +139,8 @@ public:
     */
 
     string to_string() const {
-        
+        string list = "hello";
+        return list;
     }
 
     friend class Tests;

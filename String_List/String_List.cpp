@@ -8,7 +8,14 @@
 using namespace std;
 
 int main() {
-    cout << "Hello";
+    String_List linkedList;
+    linkedList.push_back("1");
+    linkedList.push_back("1");
+    linkedList.push_back("1");
+    linkedList.push_back("1");
+    linkedList.push_back("1");
+    linkedList.push_back("1");
+    
 
     return 0;
 }

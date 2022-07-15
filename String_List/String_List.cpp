@@ -9,12 +9,20 @@ using namespace std;
 
 int main() {
     String_List linkedList;
+    
     linkedList.push_back("1");
     linkedList.push_back("1");
     linkedList.push_back("1");
     linkedList.push_back("1");
     linkedList.push_back("1");
     linkedList.push_back("1");
+    linkedList.push_back("1");
+    linkedList.push_back("1");
+    linkedList.push_back("1");
+    linkedList.push_back("1");
+    
+
+    cout << linkedList.get_size();
     
 
     return 0;

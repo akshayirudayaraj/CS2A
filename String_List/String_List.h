@@ -41,12 +41,12 @@ public:
         _tail = _head;
         _prev_to_current = _head;
 
-        // _size++ ; // increment size of list
+        _size++; // increment size of list
     }
 
     ~String_List() {
-        // clear(); // empties list
-        // _size--; // decrements size
+        clear(); // empties list
+        _size--; // decrements size
         delete _head; // deallocate what head points at
     }
 
@@ -57,9 +57,9 @@ public:
 
     String_List *push_back(string s) {
         _tail = new Node(s);
-        // save prev_to_current
+        Node *ptc_holder = _prev_to_current;
         _prev_to_current -> next = _tail;
-        // restore prev_to_current
+        _prev_to_current = ptc_holder;
 
         return this;
     }
@@ -101,9 +101,9 @@ public:
     }
 
     void clear() {
-        for (size_t i = 0; i <= _size; i++) {
+        for (size_t i = 0; i <= _size-1; i++) {
             if (_head -> next != NULL) {
-                delete this;
+                delete _head -> next;
             }
         }
         _prev_to_current = _head;
@@ -121,15 +121,18 @@ public:
     */
 
     string& find_item(string s) const {
-        static string holder = "_SENTINEL_";
+        // static string holder = "_SENTINEL_";
 
-        /*
-        for (size_t i = 0; i <= _size; i++) {
-            
+        
+        for (size_t i = 0; i < _size; i++) {
+            if (_head -> data == s) {
+                return _head -> data;
+            }
+            _head -> data = _head -> next -> data;
         }
-        */
+        
 
-        return holder;
+        return _head -> data;
     }
 
     /*
@@ -139,7 +142,17 @@ public:
     */
 
     string to_string() const {
-        string list = "hello";
+        std::ostringstream strings;
+        strings << get_size();
+        string strSize = strings.str();
+
+        string list = "# String_List - " + strSize + " entries total. Starting at cursor:\n";
+
+        for (size_t i = 0; i < _size; i++) {
+            list += _head -> data + "\n";
+            _head -> data = _head -> next -> data;
+        }
+
         return list;
     }
 

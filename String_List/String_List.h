@@ -10,7 +10,7 @@ using std::string;
 
 /*
 IMPORTANT IMPLEMENTATION NOTE: With the expection of to_string(),
-find*(), and clear(), all list mehtods below should operate
+find*(), and clear(), all list methods below should operate
 in a constant amount of time regardless of the size of the String_List
 instance.
 
@@ -41,33 +41,40 @@ public:
         _tail = _head;
         _prev_to_current = _head;
 
-        _size++; // increment size of list
+        _size = 0; // set size of list
     }
 
     ~String_List() {
         clear(); // empties list
-        _size--; // decrements size
         delete _head; // deallocate what head points at
     }
 
     String_List *insert_at_current(string s) {
         _prev_to_current -> next = new Node(s); // _prev_to_current points to next points to new Node where data = s
+        
+        _size++;
         return this;
     }
 
     String_List *push_back(string s) {
         _tail = new Node(s);
+
         Node *ptc_holder = _prev_to_current;
         _prev_to_current -> next = _tail;
         _prev_to_current = ptc_holder;
-
+        
+        _size++;
         return this;
     }
 
     String_List *push_front(string s) {
         _head -> next = new Node(s);
-        _head -> next -> next = _prev_to_current;
 
+        Node *ptc_holder = _prev_to_current;
+        _prev_to_current -> next = _head -> next;
+        _prev_to_current = ptc_holder;
+
+        _size++;
         return this;
     }
 
@@ -75,19 +82,24 @@ public:
         if (_prev_to_current == _tail) {
             return nullptr;
         }
+
         _prev_to_current = _prev_to_current -> next;
         return this;
     }
 
     string get_current() const {
-        if (_prev_to_current != nullptr) {
-            return _prev_to_current -> data;
+        if (_prev_to_current -> next != nullptr) {
+            return _prev_to_current -> next -> data;
         }
         return _head -> data;
     }
 
     String_List *remove_at_current() {
-       delete _prev_to_current -> next;
+        Node *ptc_holder = _prev_to_current -> next -> next;
+        delete _prev_to_current -> next;
+        _prev_to_current -> next = ptc_holder;
+
+       _size--;
        return this;
     }
 
@@ -103,12 +115,15 @@ public:
     void clear() {
         for (size_t i = 0; i <= _size-1; i++) {
             if (_head -> next != NULL) {
+                Node *holder = _head -> next -> next;
                 delete _head -> next;
+                _head -> next = holder;
             }
         }
         _prev_to_current = _head;
         _tail = _head;
         _head -> next = nullptr;
+        _size = 0;
     }
 
     /*
@@ -121,18 +136,17 @@ public:
     */
 
     string& find_item(string s) const {
-        // static string holder = "_SENTINEL_";
-
+        static string holder = "_SENTINEL_";
         
-        for (size_t i = 0; i < _size; i++) {
-            if (_head -> data == s) {
-                return _head -> data;
+        
+        for (size_t i = 0; i < _size - 1; i++) {
+            if ( == s) {
+                return ;
             }
-            _head -> data = _head -> next -> data;
+            
         }
-        
 
-        return _head -> data;
+        return holder;
     }
 
     /*

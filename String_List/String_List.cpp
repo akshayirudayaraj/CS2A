@@ -39,15 +39,15 @@ int main() {
 
     linkedList.remove_at_current();
 
-    cout << linkedList.get_current() << "\n";
-
     cout << linkedList.get_size() << "\n";
+
+    cout << linkedList.get_current() << "\n";
 
     linkedList.rewind();
     cout << linkedList.get_current() << "\n";
     
-    // linkedList.clear();
-    // cout << linkedList.get_size() << "\n";
+    linkedList.clear();
+    cout << linkedList.get_size() << "\n";
 
     cout << linkedList.find_item("hello") << "\n";
 

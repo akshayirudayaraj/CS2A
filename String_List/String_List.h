@@ -132,17 +132,13 @@ public:
     what will I do if I didn't find the requested string? Using sentinel markers
     is one way to handle that situation. Usually, there's only one copy
     of the sentinel that's global. We will use a local one so it's cleaner with
-    a little more risk (the risk is... UNFINISHED).
+    a little more risk.
     */
 
     string& find_item(string s) const {
         static string holder = "_SENTINEL_";
         
-        
         for (size_t i = 0; i < _size - 1; i++) {
-            if ( == s) {
-                return ;
-            }
             
         }
 

@@ -38,6 +38,7 @@ public:
     String_List() {
         // empty list with all pointers directed at header
         _head = new Node("_SENTINEL_");
+        _head -> next = nullptr;
         _tail = _head;
         _prev_to_current = _head;
 
@@ -50,29 +51,28 @@ public:
     }
 
     String_List *insert_at_current(string s) {
+        Node *holder = _prev_to_current -> next;
+
         _prev_to_current -> next = new Node(s); // _prev_to_current points to next points to new Node where data = s
-        
+
+        _prev_to_current -> next -> next = holder;
+
         _size++;
         return this;
     }
 
     String_List *push_back(string s) {
-        _tail = new Node(s);
-
-        Node *ptc_holder = _prev_to_current;
         _prev_to_current -> next = _tail;
-        _prev_to_current = ptc_holder;
+        insert_at_current(s);
+        _tail = nullptr;
         
         _size++;
         return this;
     }
 
     String_List *push_front(string s) {
-        _head -> next = new Node(s);
-
-        Node *ptc_holder = _prev_to_current;
-        _prev_to_current -> next = _head -> next;
-        _prev_to_current = ptc_holder;
+        _prev_to_current -> next = _head;
+        insert_at_current(s);
 
         _size++;
         return this;
@@ -104,9 +104,7 @@ public:
     }
 
     size_t get_size() const {
-        std::cout << "Check 1" << "\n";
         return _size;
-        std::cout << "Check 2";
     }
 
     String_List *rewind() {
@@ -117,7 +115,7 @@ public:
     void clear() {
         Node *holder;
 
-        for (size_t i = 0; i <= _size-1; i++) {
+        for (size_t i = 0; i < _size; i++) {
             if (_head -> next != NULL) {
                 holder = _head -> next -> next;
                 delete _head -> next;
@@ -172,9 +170,15 @@ public:
 
         string list = "# String_List - " + strSize + " entries total. Starting at cursor:\n";
 
+        Node *ptr1 = _head;
+        Node *ptr2 = _head;
+
         for (size_t i = 0; i < _size; i++) {
-            list += _head -> data + "\n";
-            _head -> data = _head -> next -> data;
+            if (ptr1->next != nullptr) {
+                ptr2 = ptr2 -> next;
+            }
+            list += ptr1 -> data + "\n";
+            list += ptr2 -> data + "\n";
         }
 
         return list;

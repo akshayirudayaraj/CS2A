@@ -13,12 +13,10 @@ int main() {
     cout << "Check 1" << "\n";
 
     cout << linkedList.get_size() << "\n";
+    // linkedList.clear();
 
     cout << "Check 2" << "\n";
 
-    cout << "Check 3";
-
-    /*
     linkedList
         .push_back("1")
         ->push_back("2")
@@ -47,15 +45,13 @@ int main() {
 
     cout << linkedList.get_size() << "\n";
 
-    linkedList.rewind();
     cout << linkedList.get_current() << "\n";
-    
-    linkedList.clear();
-    cout << linkedList.get_size() << "\n";
 
     cout << linkedList.find_item("hello") << "\n";
 
     cout << linkedList.to_string();
-    */
+    
 
+
+   return 0;
 }

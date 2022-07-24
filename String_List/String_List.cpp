@@ -10,23 +10,29 @@ using namespace std;
 int main() {
     String_List linkedList;
 
+    cout << "Check 1" << "\n";
+
     cout << linkedList.get_size() << "\n";
-    
+
+    cout << "Check 2" << "\n";
+
+    cout << "Check 3";
+
+    /*
+    linkedList
+        .push_back("1")
+        ->push_back("2")
+        ->push_back("3")
+        ->push_back("4");
+
+    cout << linkedList.get_size() << "\n";
+
     linkedList
         .push_back("1")
         ->push_back("1")
         ->push_back("1")
         ->push_back("1");
-
-    cout << linkedList.get_size() << "\n";
-
-    linkedList
-        .push_back("1")
-        ->push_back("1")
-        ->push_back("1")
-        ->push_back("1");
     
-
     cout << linkedList.get_size() << "\n";
 
     linkedList.insert_at_current("hello");
@@ -41,8 +47,6 @@ int main() {
 
     cout << linkedList.get_size() << "\n";
 
-    cout << linkedList.get_current() << "\n";
-
     linkedList.rewind();
     cout << linkedList.get_current() << "\n";
     
@@ -52,6 +56,6 @@ int main() {
     cout << linkedList.find_item("hello") << "\n";
 
     cout << linkedList.to_string();
+    */
 
-    return 0;
 }

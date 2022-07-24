@@ -104,7 +104,9 @@ public:
     }
 
     size_t get_size() const {
+        std::cout << "Check 1" << "\n";
         return _size;
+        std::cout << "Check 2";
     }
 
     String_List *rewind() {
@@ -113,9 +115,11 @@ public:
     }
 
     void clear() {
+        Node *holder;
+
         for (size_t i = 0; i <= _size-1; i++) {
             if (_head -> next != NULL) {
-                Node *holder = _head -> next -> next;
+                holder = _head -> next -> next;
                 delete _head -> next;
                 _head -> next = holder;
             }
@@ -137,9 +141,19 @@ public:
 
     string& find_item(string s) const {
         static string holder = "_SENTINEL_";
+        Node *ptr1 = _head;
+        Node *ptr2 = _head;
         
-        for (size_t i = 0; i < _size - 1; i++) {
-            
+        for (size_t i = 0; i < (_size/2 - 1); i++) {
+            if (ptr1->next != nullptr) {
+                ptr2 = ptr2 -> next;
+            }
+
+            if (ptr1 -> data == s) {
+                return ptr1 -> data;
+            } else if (ptr2 -> data == s) {
+                return ptr2 -> data;
+            }
         }
 
         return holder;

@@ -62,17 +62,33 @@ public:
     }
 
     String_List *push_back(string s) {
-        _prev_to_current -> next = _tail;
-        insert_at_current(s);
-        _tail = nullptr;
+        Node *ptc_holder = _prev_to_current;
+        _prev_to_current = _tail;
+
+        _prev_to_current = new Node(s); // _prev_to_current points to next points to new Node where data = s
+        _prev_to_current -> next = nullptr;
+        _tail = _prev_to_current;
+
+        _prev_to_current = ptc_holder;
         
         _size++;
         return this;
     }
 
     String_List *push_front(string s) {
-        _prev_to_current -> next = _head;
-        insert_at_current(s);
+        Node *ptc_holder = _prev_to_current;
+        _prev_to_current = _head -> next;
+
+        if (get_size() > 1) {
+            Node *head_next_holder = _head -> next -> next;
+            _prev_to_current = new Node(s); // _prev_to_current points to next points to new Node where data = s
+            _prev_to_current -> next = head_next_holder;
+        } else {
+            _prev_to_current = new Node(s);
+            _prev_to_current -> next = nullptr;
+        }
+
+        _prev_to_current = ptc_holder;
 
         _size++;
         return this;
@@ -115,7 +131,7 @@ public:
     void clear() {
         Node *holder;
 
-        for (size_t i = 0; i < _size; i++) {
+        for (size_t i = 0; i < get_size(); i++) {
             if (_head -> next != NULL) {
                 holder = _head -> next -> next;
                 delete _head -> next;
@@ -140,17 +156,14 @@ public:
     string& find_item(string s) const {
         static string holder = "_SENTINEL_";
         Node *ptr1 = _head;
-        Node *ptr2 = _head;
         
-        for (size_t i = 0; i < (_size/2 - 1); i++) {
+        for (size_t i = 0; i < (get_size()/2 - 1); i++) {
             if (ptr1->next != nullptr) {
-                ptr2 = ptr2 -> next;
+                ptr1 = ptr1 -> next;
             }
 
             if (ptr1 -> data == s) {
                 return ptr1 -> data;
-            } else if (ptr2 -> data == s) {
-                return ptr2 -> data;
             }
         }
 
@@ -171,14 +184,21 @@ public:
         string list = "# String_List - " + strSize + " entries total. Starting at cursor:\n";
 
         Node *ptr1 = _head;
-        Node *ptr2 = _head;
 
-        for (size_t i = 0; i < _size; i++) {
-            if (ptr1->next != nullptr) {
-                ptr2 = ptr2 -> next;
+        if (get_size() > 25) {
+            for (size_t i = 0; i < 25; i++) {
+                if (ptr1->next != nullptr) {
+                    ptr1 = ptr1 -> next;
+                }
+                list += ptr1 -> data + "\n";
             }
-            list += ptr1 -> data + "\n";
-            list += ptr2 -> data + "\n";
+        } else {
+            for (size_t i = 0; i < get_size(); i++) {
+                if (ptr1 -> next != nullptr) {
+                    ptr1 = ptr1 -> next;
+                }
+                list += ptr1 -> data + "\n";
+            }
         }
 
         return list;

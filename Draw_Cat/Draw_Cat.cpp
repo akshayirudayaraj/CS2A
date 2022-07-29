@@ -4,8 +4,16 @@
 
 using namespace std;
 
+//  -------
+// | /\_/\ |
+// |( o o )|
+// | > ^ < |
+//  -------
+// Schrodinger
+
 void draw_cat() {
-    cout << "\b  ------- \n | /\\_/\\ | \n |( o o )| \n | > ^ < | \n  ------- \nSchrodinger \n";
+    //cout << "  ------- \n | /\\_/\\ | \n |( o o )| \n | > ^ < | \n  ------- \nSchrodinger \n";
+    cout << "  -------\n | /\\_/\\ |\n |( o o )|\n | > ^ < |\n  -------\nSchrodinger";
 }
 
 int main (int argc, const char * argv[]) {

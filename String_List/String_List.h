@@ -51,11 +51,19 @@ public:
     }
 
     String_List *insert_at_current(string s) {
-        Node *holder = _prev_to_current -> next;
 
-        _prev_to_current -> next = new Node(s); // _prev_to_current points to next points to new Node where data = s
-
-        _prev_to_current -> next -> next = holder;
+        if (_prev_to_current -> next != nullptr && _prev_to_current -> next -> next != nullptr) {
+            Node *holder = _prev_to_current -> next;
+            _prev_to_current -> next = new Node(s); // _prev_to_current points to next points to new Node where data = s
+            _prev_to_current -> next -> next = holder;
+        } else if (_prev_to_current -> next != nullptr && _prev_to_current -> next -> next == nullptr) {
+            _prev_to_current -> next = new Node(s);
+            _prev_to_current -> next -> next = _tail;
+        } else {
+            _prev_to_current -> next = new Node(s);
+            _prev_to_current -> next -> next = nullptr;
+            _tail = _prev_to_current -> next;
+        }
 
         _size++;
         return this;
@@ -65,32 +73,21 @@ public:
         Node *ptc_holder = _prev_to_current;
         _prev_to_current = _tail;
 
-        _prev_to_current = new Node(s); // _prev_to_current points to next points to new Node where data = s
-        _prev_to_current -> next = nullptr;
-        _tail = _prev_to_current;
+        insert_at_current(s);
 
         _prev_to_current = ptc_holder;
-        
-        _size++;
+
         return this;
     }
 
     String_List *push_front(string s) {
         Node *ptc_holder = _prev_to_current;
-        _prev_to_current = _head -> next;
+        _prev_to_current = _head;
 
-        if (get_size() > 1) {
-            Node *head_next_holder = _head -> next -> next;
-            _prev_to_current = new Node(s); // _prev_to_current points to next points to new Node where data = s
-            _prev_to_current -> next = head_next_holder;
-        } else {
-            _prev_to_current = new Node(s);
-            _prev_to_current -> next = nullptr;
-        }
+        insert_at_current(s);
 
         _prev_to_current = ptc_holder;
 
-        _size++;
         return this;
     }
 
@@ -157,7 +154,7 @@ public:
         static string holder = "_SENTINEL_";
         Node *ptr1 = _head;
         
-        for (size_t i = 0; i < (get_size()/2 - 1); i++) {
+        for (size_t i = 0; i < get_size(); i++) {
             if (ptr1->next != nullptr) {
                 ptr1 = ptr1 -> next;
             }
@@ -192,6 +189,9 @@ public:
                 }
                 list += ptr1 -> data + "\n";
             }
+
+            list += "...\n";
+
         } else {
             for (size_t i = 0; i < get_size(); i++) {
                 if (ptr1 -> next != nullptr) {

@@ -197,7 +197,9 @@ public:
                 if (ptr1 -> next != nullptr) {
                     ptr1 = ptr1 -> next;
                 }
+
                 list += ptr1 -> data + "\n";
+                
             }
         }
 

@@ -199,7 +199,7 @@ public:
                 }
 
                 list += ptr1 -> data + "\n";
-                
+
             }
         }
 
